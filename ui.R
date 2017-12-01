@@ -6,17 +6,17 @@ shinyUI(fluidPage(
   tags$head(
     tags$link(rel="stylesheet", type="text/css", href="custom_styles.css")
   ),
-  
-  title = "Traveling Salesman with Simulated Annealing, Shiny, and R",
-  
-  tags$h2(tags$a(href="/traveling-salesman", "Traveling Salesman", target="_blank")),
-  
+
+  title = "Agente Viajero con Recocido Simulado, Shiny y R",
+
+  tags$h2(tags$a(href="/traveling-salesman", "Agente Viajero", target="_blank")),
+
   plotOutput("map", height="550px"),
   
   fluidRow(
     column(5,
       tags$ol(
-        tags$li("Customize the list of cities, based on the world or US map"),
+        tags$li("Personalice la lista de ciudades. Básese en el mapa mundial o el mapa de Estados Unidos"),
         tags$li("Adjust simulated annealing parameters to taste"),
         tags$li("Click the 'solve' button!")
       )
@@ -31,9 +31,9 @@ shinyUI(fluidPage(
             </button>")
     ), class="aaa"
   ),
-  
+
   hr(),
-  
+
   fluidRow(
     column(5,
       h4("Choose a map and which cities to tour"),
@@ -44,7 +44,7 @@ shinyUI(fluidPage(
                                     selectOnTab=TRUE, openOnFocus=FALSE, hideSelected=TRUE)),
       checkboxInput("label_cities", "Label cities on map?", FALSE)
     ),
-    
+
     column(2,
       h4("Simulated Annealing Parameters"),
       inputPanel(
@@ -56,7 +56,7 @@ shinyUI(fluidPage(
       ),
       class="numeric-inputs"
     ),
-    
+
     column(5,
       plotOutput("annealing_schedule", height="260px"),
       plotOutput("distance_results", height="260px")
