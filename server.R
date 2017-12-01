@@ -30,7 +30,7 @@ shinyServer(function(input, output, session) {
 
   one_time_initialization = observe({
     isolate({
-      cty = subset(city_choices(), full.name %in% seed_cities)
+2      cty = subset(city_choices(), full.name %in% seed_cities)
       cty$n = 1:nrow(cty)
       updateSelectizeInput(session, "cities", selected=cty$full.name)
 
@@ -172,7 +172,7 @@ shinyServer(function(input, output, session) {
   output$annealing_schedule = renderPlot({
     xvals = seq(from=0, to=vals$total_iterations, length.out=100)
     yvals = current_temperature(xvals, vals$s_curve_amplitude, vals$s_curve_center, vals$s_curve_width)
-    plot(xvals, yvals, type='l', xlab="iteraciones", ylab="temperatura", main="Annealing Schedule")
+    plot(xvals, yvals, type='l', xlab="iteraciones", ylab="temperatura", main="Programa de Recocido")
     points(vals$iter, current_temperature(vals$iter, vals$s_curve_amplitude, vals$s_curve_center, vals$s_curve_width), pch=19, col='red')
   }, height=260)
 
