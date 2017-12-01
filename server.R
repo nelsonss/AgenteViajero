@@ -30,7 +30,7 @@ shinyServer(function(input, output, session) {
 
   one_time_initialization = observe({
     isolate({
-2      cty = subset(city_choices(), full.name %in% seed_cities)
+      cty = subset(city_choices(), full.name %in% seed_cities)
       cty$n = 1:nrow(cty)
       updateSelectizeInput(session, "cities", selected=cty$full.name)
 
