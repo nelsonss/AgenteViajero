@@ -12,17 +12,17 @@ shinyUI(fluidPage(
   tags$h2(tags$a(href="/traveling-salesman", "Agente Viajero", target="_blank")),
 
   plotOutput("map", height="550px"),
-  
+
   fluidRow(
     column(5,
       tags$ol(
         tags$li("Personalice la lista de ciudades. Básese en el mapa mundial o el mapa de Estados Unidos"),
         tags$li("Adjust simulated annealing parameters to taste"),
-        tags$li("Click the 'solve' button!")
+        tags$li("Clic en el botón 'solucionar' !")
       )
     ),
     column(3,
-      tags$button("SOLVE", id="go_button", class="btn btn-info btn-large action-button shiny-bound-input")
+      tags$button("SOLUCIONAR", id="go_button", class="btn btn-info btn-large action-button shiny-bound-input")
     ),
     column(3,
       HTML("<button id='set_random_cities_2' class='btn btn-large action-button shiny-bound-input'>
