@@ -9,11 +9,11 @@ generate_random_cities = function(n = 10, min_dist = 250, usa_only=FALSE) {
   } else {
     candidates = all_cities
   }
-  
+  # Se escoje una ciudad inicial
   cities = candidates[sample(nrow(candidates), 1),]
   candidates = subset(candidates, !(full.name %in% cities$full.name))
-  i = 0
 
+  i = 0
   while (nrow(cities) < n & i < nrow(all_cities)) {
     candidate = candidates[sample(nrow(candidates), 1),]
     candidate_dist_matrix = distm(rbind(cities, candidate)[, c("long", "lat")]) * miles_per_meter
@@ -25,10 +25,10 @@ generate_random_cities = function(n = 10, min_dist = 250, usa_only=FALSE) {
 
     i = i + 1
   }
-  
+
   cities = cities[order(cities$full.name),]
   cities$n = 1:nrow(cities)
-  
+
   return(cities)
 }
 
@@ -50,7 +50,7 @@ plot_city_map = function(cities, map_name="world", label_cities=TRUE) {
 
 plot_tour = function(cities, tour, great_circles, map_name="world", label_cities=TRUE) {
   plot_city_map(cities, map_name, label_cities=label_cities)
-  
+
   if (length(tour) > 1) {
     closed_tour = c(tour, tour[1])
     keys = apply(embed(closed_tour, 2), 1, function(row) paste(sort(row), collapse="_"))
@@ -61,9 +61,9 @@ plot_tour = function(cities, tour, great_circles, map_name="world", label_cities
 calculate_great_circles = function(cities) {
   great_circles = list()
   if (nrow(cities) == 0) return(great_circles)
-  
+
   pairs = combn(cities$n, 2)
-  
+
   for(i in 1:ncol(pairs)) {
     key = paste(sort(pairs[,i]), collapse="_")
     pair = subset(cities, n %in% pairs[,i])
@@ -71,7 +71,7 @@ calculate_great_circles = function(cities) {
 
     great_circles[[key]] = pts
   }
-  
+
   return(great_circles)
 }
 
@@ -91,11 +91,11 @@ run_intermediate_annealing_process = function(cities, distance_matrix, tour, tou
                                               starting_iteration, number_of_iterations,
                                               s_curve_amplitude, s_curve_center, s_curve_width) {
   n_cities = nrow(cities)
-  
+
   for(i in 1:number_of_iterations) {
     iter = starting_iteration + i
     temp = current_temperature(iter, s_curve_amplitude, s_curve_center, s_curve_width)
-    
+
     candidate_tour = tour
     swap = sample(n_cities, 2)
     candidate_tour[swap[1]:swap[2]] = rev(candidate_tour[swap[1]:swap[2]])
@@ -106,18 +106,18 @@ run_intermediate_annealing_process = function(cities, distance_matrix, tour, tou
     } else {
       ratio = as.numeric(candidate_dist < tour_distance)
     }
-    
+
     if (runif(1) < ratio) {
       tour = candidate_tour
       tour_distance = candidate_dist
-      
+
       if (tour_distance < best_distance) {
         best_tour = tour
         best_distance = tour_distance
       }
     }
   }
-  
+
   return(list(tour=tour, tour_distance=tour_distance, best_tour=best_tour, best_distance=best_distance))
 }
 

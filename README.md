@@ -1,8 +1,8 @@
 Esta es una aplicación Shiny para resolver el problema de agente viajero usando el algortimos Recocido Simulado (Simulated Annealing).
-Agradecimientos a http://toddwschneider.com/posts/traveling-salesman-with-simulated-annealing-r-and-shiny/
+Agradecimientos a http://toddwschneider.com
 
 Este programa ha sido adaptado con propósitos académicos por:
-Rafael Hernandez
+Rafael Ignacio Hernandez
 Nelson Sánchez Sánchez
 
 Para ejecutar la aplicación en su máquina local, use las siguientes instrucciones en la consola de R:
