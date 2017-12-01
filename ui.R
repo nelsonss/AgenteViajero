@@ -17,7 +17,7 @@ shinyUI(fluidPage(
     column(5,
       tags$ol(
         tags$li("Personalice la lista de ciudades. Básese en el mapa mundial o el mapa de Estados Unidos"),
-        tags$li("Adjust simulated annealing parameters to taste"),
+        tags$li("Ajuste a su gusto los parámetros del recocido simulado"),
         tags$li("Clic en el botón 'solucionar' !")
       )
     ),
@@ -36,17 +36,17 @@ shinyUI(fluidPage(
 
   fluidRow(
     column(5,
-      h4("Choose a map and which cities to tour"),
+      h4("Elija un mapa y las ciudades que visitará"),
       selectInput("map_name", NA, c("World", "USA"), "World", width="100px"),
-      p("Type below to select individual cities, or", actionButton("set_random_cities", "set randomly", icon=icon("refresh"))),
+      p("Seleccione las ciudades individualmente, o", actionButton("set_random_cities", "elija que se haga aleatoriamente", icon=icon("refresh"))),
       selectizeInput("cities", NA, all_cities$full.name, multiple=TRUE, width="100%",
                      options = list(maxItems=30, maxOptions=100, placeholder="Start typing to select some cities...",
                                     selectOnTab=TRUE, openOnFocus=FALSE, hideSelected=TRUE)),
-      checkboxInput("label_cities", "Label cities on map?", FALSE)
+      checkboxInput("label_cities", "Etiquetar las ciudades sobre el mapa?", FALSE)
     ),
 
     column(2,
-      h4("Simulated Annealing Parameters"),
+      h4("Parámetros del recocido simulado"),
       inputPanel(
         numericInput("s_curve_amplitude", "S-curve Amplitude", 4000, min=0, max=10000000),
         numericInput("s_curve_center", "S-curve Center", 0, min=-1000000, max=1000000),
