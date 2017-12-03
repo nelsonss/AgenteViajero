@@ -18,19 +18,22 @@ generate_random_cities = function(n = 10, min_dist = 250, usa_only=FALSE) {
   # Se dejan como ciudades candidatas a visitar todas las demás
   candidates = subset(candidates, !(full.name %in% cities$full.name))
 
+  # A continuación generamos más ciudades aleatoriamente
   i = 0
   while (nrow(cities) < n & i < nrow(all_cities)) {
     candidate = candidates[sample(nrow(candidates), 1),]
-    candidate_dist_matrix = distm(rbind(cities, candidate)[, c("long", "lat")]) * miles_per_meter
-
     if (min(candidate_dist_matrix[candidate_dist_matrix > 0]) > min_dist) {
+      # se recalcula la matriz de la distancias de las ciudades de muestra
+      candidate_dist_matrix = distm(rbind(cities, candidate)[, c("long", "lat")]) * miles_per_meter
+      # Si la distancia minima de la matrix es positiva y a su vez superior a min_dist
+      # añadirla a la lista de ciudades aleatorias y quitarla de las ciudades candidatas
       cities = rbind(cities, candidate)
       candidates = subset(candidates, !(candidates$full.name %in% cities$full.name))
     }
-
     i = i + 1
   }
-
+  # Finalmente se ordenan las ciudades por nombre completo las ciudades elegidas
+  # y se numeran añadiendoles una columna adicional con la secuencia ordenada
   cities = cities[order(cities$full.name),]
   cities$n = 1:nrow(cities)
 
@@ -95,6 +98,7 @@ s_curve = function(x, center, width) {
 run_intermediate_annealing_process = function(cities, distance_matrix, tour, tour_distance, best_tour, best_distance,
                                               starting_iteration, number_of_iterations,
                                               s_curve_amplitude, s_curve_center, s_curve_width) {
+  # Determinar cuántas ciudades se van a visitar
   n_cities = nrow(cities)
 
   for(i in 1:number_of_iterations) {
