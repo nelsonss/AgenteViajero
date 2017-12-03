@@ -4,13 +4,18 @@ if (!exists("all_cities")) all_cities = readRDS("data/cities.rds")
 if (!exists("usa_cities")) usa_cities = readRDS("data/usa_cities.rds")
 
 generate_random_cities = function(n = 10, min_dist = 250, usa_only=FALSE) {
+  # Identificar la tabla de ciudades candidatas a usar
   if (usa_only) {
     candidates = usa_cities
   } else {
     candidates = all_cities
   }
-  # Se escoje una ciudad inicial
+  # Se escoje un número del 1 hasta el total de filas o ciudades que tiene la tabla elegida
+  # Se ubica la ciudad de la fila tomada de muestra
   cities = candidates[sample(nrow(candidates), 1),]
+
+  # Solo se quita de la tabla de ciudades candidatas la fila elegida
+  # Se dejan como ciudades candidatas a visitar todas las demás
   candidates = subset(candidates, !(full.name %in% cities$full.name))
 
   i = 0
